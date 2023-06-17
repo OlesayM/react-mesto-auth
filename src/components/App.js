@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useState } from 'react';
-import { Route, Routes, useNavigate } from 'react-router-dom';
+import { Route, Routes, useNavigate, Navigate } from 'react-router-dom';
 import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
@@ -26,7 +26,7 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
   const [isSuccessSignUp, setSuccessSignUp] = useState(false);
-  const [userEmail, setUserEmail] = useState(null);
+  const [userEmail, setUserEmail] = useState('');
   const [loggedIn, setLoggedIn] = useState(false);
   const navigate = useNavigate();
 
@@ -176,7 +176,7 @@ function App() {
   function logout() {
     setLoggedIn(false);
     localStorage.removeItem('token');
-    // setUserEmail('')
+    setUserEmail('')
   }
 
   function checkToken() {
@@ -196,7 +196,7 @@ function App() {
 
   useEffect(() => {
     checkToken();
-  }, []);
+  }, [loggedIn]);
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -228,7 +228,9 @@ function App() {
               path="/sign-up"
               element={<Register handleRegistration={handleRegistration} />}
             />
-            <Route exact path="/" element={<Main />} />
+            {/* <Route exact path="/" element={<Main />} /> */}
+            {/* <Route path="*" element={loggedIn ? <Navigate to="/" replace />  : <Navigate to="/sign-in" replace />} /> */}
+              
           </Routes>
 
           <Footer />
