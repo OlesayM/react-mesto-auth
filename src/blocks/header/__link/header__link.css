@@ -1,10 +1,12 @@
 .header__link {
-    font-size: 18px;
-    line-height: 22px;
-    text-decoration: none;
-    color: #FFFFFF;
-    margin-left: 24px;
-    display: block;
+  font-family: 'Inter';
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 22px;
+  text-decoration: none;
+  color: #ffffff;
+  margin-left: 24px;
+  display: block;
 }
 .header__link:hover {
   opacity: 0.6;

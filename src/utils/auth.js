@@ -1,6 +1,6 @@
 const BASE_URL = 'https://auth.nomoreparties.co';
 
-export function registration({ password, email }) {
+export const registration = ({ password, email }) => {
     return fetch(`${BASE_URL}/signup`, {
         method: 'POST',
         headers: {
@@ -11,7 +11,7 @@ export function registration({ password, email }) {
     .then(checkResponseStatus)
 }
 
-export function authorization({ password, email}) {
+export const authorization = ({ password, email}) => {
     return fetch(`${BASE_URL}/signin`, {
         method: 'POST',
         headers: {
@@ -22,7 +22,7 @@ export function authorization({ password, email}) {
     .then(checkResponseStatus)
 };
 
-export function checkValidToken(token) {
+export const checkValidToken = (token) =>{
     return fetch(`${BASE_URL}/users/me`, {
         method: 'GET',
         headers: {
