@@ -32,6 +32,9 @@ function App() {
 
   // Рендер карточек и данных пользователя
   useEffect(() => {
+    if (!loggedIn) {
+      return;
+    }
     Promise.all([apiConnect.getProfileInfo(), apiConnect.getInitialCards()])
       .then(([response, card]) => {
         setCurrentUser(response);
@@ -40,7 +43,7 @@ function App() {
       .catch((err) => {
         console.log(`Возникла глобальная ошибка, ${err}`);
       });
-  }, []);
+  }, [loggedIn]);
 
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true);
@@ -165,6 +168,7 @@ function App() {
       .then((res) => {
         localStorage.setItem('token', res.token);
         setLoggedIn(true);
+        setUserEmail(data.email);
         navigate('/');
       })
       .catch((err) => {
@@ -196,7 +200,7 @@ function App() {
 
   useEffect(() => {
     checkToken();
-  }, [loggedIn]);
+  }, []);
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -228,9 +232,7 @@ function App() {
               path="/sign-up"
               element={<Register handleRegistration={handleRegistration} />}
             />
-            {/* <Route exact path="/" element={<Main />} /> */}
-            {/* <Route path="*" element={loggedIn ? <Navigate to="/" replace />  : <Navigate to="/sign-in" replace />} /> */}
-              
+            <Route path="*" element={loggedIn ? <Navigate to="/" replace />  : <Navigate to="/sign-in" replace />} />    
           </Routes>
 
           <Footer />
